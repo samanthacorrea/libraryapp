@@ -30,7 +30,7 @@ getAuthors();
 // Lista livros de um autor
 const getBooksByAuthors = (id) => {
     let url = REACT_APP_DNS + `/authors/${id}/books`;
-    alert(id)
+    // alert(id)
     axios.get(url)
         .then(result => {
             console.log(result);
@@ -41,7 +41,7 @@ const getBooksByAuthors = (id) => {
         })
 };
 
-// Deleta o autor 
+// Excluir autor 
 const deleteAuthor = (id) => {
     let url = REACT_APP_DNS + `/authors/${id}`;
     axios.delete(url)
@@ -54,6 +54,8 @@ const deleteAuthor = (id) => {
             console.log(e)
         })
 };
+
+// Excluir livro do autor
 
 
 export const GeneralReducer = (state = initialState, action) => {

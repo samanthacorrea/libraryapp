@@ -1,5 +1,4 @@
 import React from 'react';
-import './index.sass';
 import { connect } from 'react-redux';
 import Paper from '@material-ui/core/Paper';
 import Grid from '@material-ui/core/Grid';
@@ -104,7 +103,7 @@ const Authors = (props) => {
                                 <div className={"col-8"}>
                                     <TextField
                                         id="outlined-full-width"
-                                        style={{ margin: 9 }}
+                                        style={{ margin: 9, background: 'white' }}
                                         placeholder="Pesquisar..."
                                         fullWidth
                                         margin="normal"
@@ -126,8 +125,6 @@ const Authors = (props) => {
                                                 avatar={
                                                 <Avatar aria-label="recipe" className={classes.avatar}>
                                                     {index+1}
-                                                    {/* {author.firstName.substring(0, 1)}{author.lastName.substring(0, 1)} */}
-
                                                 </Avatar>
                                                 }
                                                 action={
