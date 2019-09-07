@@ -56,6 +56,18 @@ const deleteAuthor = (id) => {
 };
 
 // Excluir livro do autor
+const deleteBookByAuthor = (idAuthor, idBook) => {
+    let url = REACT_APP_DNS + `/authors/${idAuthor}/books/${idBook}`;
+    axios.delete(url)
+        .then(result => {
+            console.log(result);
+            getBooksByAuthors(idAuthor);
+            // chamar modal dizendo que o item foi deletado
+        })
+        .catch(e => {
+            console.log(e)
+        })
+};
 
 
 export const GeneralReducer = (state = initialState, action) => {
@@ -71,28 +83,37 @@ export const GeneralReducer = (state = initialState, action) => {
             return { ...state, openSideBar: false };
         case 'ON_AUTHORS':
             // console.log(action.authors);
-            return { state, authors: action.authors, page: "Authors" }
+            return { ...state, authors: action.authors, page: "Authors" }
         
         case 'ON_DELETE_AUTHOR':
             console.log(action.id);
             deleteAuthor(action.id);
-            return { state }
+            return { ...state }
 
 
         case 'ON_BOOKS_BY_AUTHOR':
-            return { state, booksByAuthor: action.booksByAuthor, page: "BooksByAuthor" }  
+            return { ...state, booksByAuthor: action.booksByAuthor, page: "BooksByAuthor" }  
 
+        case 'ON_DELETE_BOOK_BY_AUTHOR':
+            console.log("AQUUIII")
+            console.log(action);
+            deleteBookByAuthor(action.idAuthor, action.idBook);
+            return { ...state }
+        
 
         case 'ON_GET_BOOKS_BY_AUTHOR':
             console.log(action.id);
             getBooksByAuthors(action.id);
-            return { state, currentAuthor: action.id}  
+            return { ...state, currentAuthor: action.id}  
 
         case 'ON_CURRENT_AUTHOR':
             console.log(action);
             // deleteAuthor(action.id)
-            return { state, currentAuthor: action.id, page: "Author" }
+            return { ...state, currentAuthor: action.id, page: "Author" }
 
+        case 'ON_HOME':
+            getAuthors();
+            return { ...state, page: "Author" }
         case 'ON_CHANGE_PAGE':
             return { ...state, page: action.page };
         case 'ON_OPEN_MODAL':

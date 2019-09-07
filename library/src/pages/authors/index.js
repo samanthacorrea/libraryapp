@@ -56,7 +56,6 @@ const Authors = (props) => {
 
     const deleteAuthor = (id, firstName, lastName) => {
         console.log("Excluir autor ");  
-        // props.setCurrentAuthor(id);
         let data = {
             id: id,
             firstName: firstName,
@@ -92,11 +91,10 @@ const Authors = (props) => {
                 </Fab>
             </Tooltip>
             
-            <h2>Listagem de autores</h2>
 
             {
                 props.authors?
-                    <div className={"container"}>
+                    <div className={"container pt-5"}>
                         <div className={"row"}>
                             <Grid container spacing={3}>
                                 <div className={"col-2"}></div>
@@ -104,7 +102,7 @@ const Authors = (props) => {
                                     <TextField
                                         id="outlined-full-width"
                                         style={{ margin: 9, background: 'white' }}
-                                        placeholder="Pesquisar..."
+                                        placeholder="Pesquisar por autor..."
                                         fullWidth
                                         margin="normal"
                                         variant="outlined"
@@ -132,7 +130,7 @@ const Authors = (props) => {
                                                         <Tooltip 
                                                                 title="Ver livros" 
                                                                 className={"mt-3"}
-                                                                onClick={() => getBooksByAuthor(author.id, author.firstName, author.lastN)}>
+                                                                onClick={() => getBooksByAuthor(author.id, author.firstName, author.lastName)}>
                                                             <IconButton aria-label="open">
                                                                 <FolderOpenIcon />
                                                             </IconButton>
@@ -192,7 +190,6 @@ const mapDispatchToProps = (dispatch) => ({
         modalSize: modalSize
     }),
     closeModal: () => dispatch({ type: 'ON_CLOSE_MODAL' }),
-    openSideBar: (text) => dispatch({ type: 'ON_OPEN_SIDEBAR', text: text }),
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(Authors)

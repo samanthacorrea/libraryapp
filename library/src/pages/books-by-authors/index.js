@@ -11,6 +11,10 @@ import DeleteIcon from '@material-ui/icons/Delete';
 import EditIcon from '@material-ui/icons/Edit';
 import IconButton from '@material-ui/core/IconButton';
 import Tooltip from '@material-ui/core/Tooltip';
+import TextField from '@material-ui/core/TextField';
+import SentimentDissatisfiedIcon from '@material-ui/icons/SentimentDissatisfied';
+import ArrowBackOutlinedIcon from '@material-ui/icons/ArrowBackOutlined';
+import { Link } from '@material-ui/core';
 
 const useStyles = makeStyles(theme => ({
     root: {
@@ -30,23 +34,63 @@ const useStyles = makeStyles(theme => ({
     
   }));
 
-  const REACT_APP_DNS = "https://bibliapp.herokuapp.com/api";
-
   
 const BooksByAuthor = (props) => {
     const classes = useStyles();
-    console.log(props.booksByAuthor);
 
     let currentAuthor = JSON.parse(localStorage.getItem('@library/currentAuthor'));
+
+    const deleteBook = (id, title) => {
+        console.log("Excluir livro ");  
+
+        let data = {
+            idAuthor: currentAuthor.id,
+            idBook: id,
+            bookTitle: title
+        }
+
+        console.log(data)
+    
+        localStorage.setItem('@library/currentBook', JSON.stringify(data));
+        props.openModal('DELETE_BOOK', 'Excluir livro', 'xs')
+        // props.deleteAuthor(id);
+    }
     return (
         <div>
-            <h2>Lista de livros de um autor {currentAuthor.firstName} {currentAuthor.lastName}</h2>
-
+            <div className={"text-left"}>
+                <Tooltip 
+                    title="Voltar" 
+                    className={"mt-4 ml-4"}
+                    onClick={() => props.backToHome()}
+                    >
+                    <IconButton aria-label="edit">
+                        <ArrowBackOutlinedIcon fontSize="large"/>
+                    </IconButton>
+                </Tooltip>
+            </div>
             <div className={"container"}>
                  <div className={"row"}>
                  {
-                    props.booksByAuthor?
+                    props.booksByAuthor.length>0?
+                
                         <Grid container spacing={5}>
+                            <h2>Lista de livros de um autor {currentAuthor.firstName} {currentAuthor.lastName}</h2>
+
+                            <div className={"col-2"}></div>
+                                <div className={"col-8"}>
+                                    <TextField
+                                        id="outlined-full-width"
+                                        style={{ margin: 9, background: 'white' }}
+                                        placeholder="Pesquisar por livro do autor..."
+                                        fullWidth
+                                        margin="normal"
+                                        variant="outlined"
+                                        InputLabelProps={{
+                                            shrink: true,
+                                        }}
+                                    />
+                                </div>
+                                <div className={"col-2"}></div>
                             {
                                 props.booksByAuthor.map((book, index) => 
                                     <Grid item xs={6}>
@@ -73,7 +117,7 @@ const BooksByAuthor = (props) => {
                                                         <Tooltip 
                                                                 title="Excluir" 
                                                                 className={"mt-3"}
-                                                                // onClick={() => deleteAuthor(author.id, author.firstName, author.lastName)}
+                                                                onClick={() => deleteBook(book.id, book.title)}
                                                                 >
                                                             <IconButton aria-label="delete">
                                                                 <DeleteIcon />
@@ -93,7 +137,21 @@ const BooksByAuthor = (props) => {
                             }
                         </Grid>
                         :
-                        <div>Tem nada!</div>
+                        <div className={"container pt-5"}>
+                            <div className={"row"}>
+                                <div className={"col-2"}></div>
+                                <div className={"col-8"}>
+                                    <h5 className={"text-center"}>O autor "{currentAuthor.firstName} {currentAuthor.lastName}" <br/>
+                                    não contém livros cadastrados!</h5>
+                                    <div className={"text-center"}>
+                                        <SentimentDissatisfiedIcon color="disabled" fontSize="large"/>
+                                    </div>
+
+                                </div>
+                                <div className={"col-2"}></div>
+                            </div>
+                        </div>
+
                 }
                  </div>
             </div>
@@ -109,7 +167,15 @@ const mapStateToProps = (state) => ({
 })
 
 const mapDispatchToProps = (dispatch) => ({
-    getBooksByAuthor: (id) => dispatch({ type: 'ON_GET_BOOKS_BY_AUTHOR', id: id})
+    getBooksByAuthor: (id) => dispatch({ type: 'ON_GET_BOOKS_BY_AUTHOR', id: id}),
+    openModal: (modalType, modalTitle, modalSize) => dispatch({
+        type: 'ON_OPEN_MODAL',
+        modalType: modalType,
+        modalTitle: modalTitle,
+        modalSize: modalSize
+    }),
+    closeModal: () => dispatch({ type: 'ON_CLOSE_MODAL' }),
+    backToHome: () => dispatch({ type: 'ON_HOME' }),
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(BooksByAuthor)
