@@ -38,7 +38,7 @@ const useStyles = makeStyles(theme => ({
         backgroundColor: deepOrange[500],
     },
     absolute: {
-        position: 'absolute',
+        position: 'fixed',
         bottom: theme.spacing(2),
         right: theme.spacing(3),
     },
@@ -101,8 +101,9 @@ const BooksByAuthor = (props) => {
                     props.booksByAuthor.length>0?
                 
                         <Grid container spacing={5}>
-                             <Tooltip title="Adicionar livro" aria-label="add" 
-                                                onClick={e => props.openModal("CREATE_BOOK", "Adicionar livro", "xs")}
+                             <Tooltip title="Adicionar livro" 
+                                      aria-label="add" 
+                                      onClick={e => props.openModal("CREATE_BOOK", "Adicionar livro", "xs")}
                             >
                                 <Fab color="primary" className={classes.absolute}>
                                     <AddIcon />

@@ -39,7 +39,7 @@ const useStyles = makeStyles(theme => ({
         backgroundColor: deepOrange[500],
     },
     absolute: {
-        position: 'absolute',
+        position: 'fixed',
         bottom: theme.spacing(2),
         right: theme.spacing(3),
     },
@@ -94,10 +94,10 @@ const Authors = (props) => {
             {
                 props.authors?
                     <div className={"container pt-5"}>
-                        <Tooltip title="Adicionar autor" aria-label="add" 
+                        <Tooltip title="Adicionar autor" aria-label="add" className={classes.absolute}
                                 onClick={e => props.openModal("CREATE_AUTHOR", "Adicionar autor", "xs")}
                         >
-                            <Fab color="primary" className={classes.absolute}>
+                            <Fab color="primary">
                                 <AddIcon />
                             </Fab>
                         </Tooltip>
