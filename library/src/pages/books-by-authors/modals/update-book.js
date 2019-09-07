@@ -47,7 +47,6 @@ class UpdateBook extends React.Component {
         this.updateBook = () => {
             if (this.state.title !== currentBook.title ||
                 this.state.isbn !== currentBook.title) {
-                    console.log("Houveram modificações")
                     this.setState({ hasChanges: false })
                     if (this.state.title && this.state.isbn) {
                         console.log("Atualizar")
@@ -57,7 +56,6 @@ class UpdateBook extends React.Component {
                             title: this.state.title,
                             isbn: this.state.isbn
                         }
-                        console.log(data);
                         this.props.updateBook(data);
                     } else {
                         if (!this.state.title) {
@@ -136,7 +134,7 @@ class UpdateBook extends React.Component {
 
                 <div className={"row"}>
                     <div className={"col-8 text-right"}>
-                    <Button color="primary" className={classes.button}>
+                    <Button color="primary" className={classes.button} onClick={() => this.props.closeModal()}>
                         Cancelar
                     </Button>
                     </div>
