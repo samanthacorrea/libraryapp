@@ -66,9 +66,15 @@ const Authors = (props) => {
         // props.deleteAuthor(id);
     }
 
-    const updateAuthor = (id) => {
+    const updateAuthor = (id,firstName, lastName) => {
         console.log("Editar autor")
-        props.openModal('UPDATE_AUTHOR', 'Atualizar autor', "sm")
+        let data = {
+            id: id,
+            firstName: firstName,
+            lastName: lastName
+        }
+        localStorage.setItem('@library/currentAuthor', JSON.stringify(data));
+        props.openModal('UPDATE_AUTHOR', 'Atualizar autor', "xs")
     }
 
     const getBooksByAuthor = (id, firstName, lastName) => {
@@ -139,7 +145,7 @@ const Authors = (props) => {
                                                         <Tooltip 
                                                                 title="Editar" 
                                                                 className={"mt-3"}
-                                                                onClick={() => updateAuthor()}
+                                                                onClick={() => updateAuthor(author.id, author.firstName, author.lastName)}
                                                                 >
                                                             <IconButton aria-label="edit">
                                                                 <EditIcon />

@@ -14,7 +14,7 @@ const classes = makeStyles(theme => ({
   }));
 
 
-class UpdateAuthor extends React.Component {
+class UpdateBook extends React.Component {
     constructor(props) {
         super(props)
         let currentAuthor = JSON.parse(localStorage.getItem('@library/currentAuthor'));
@@ -42,7 +42,7 @@ class UpdateAuthor extends React.Component {
             this.setState(this.state.data);
         };
 
-        this.updateAuthor = () => {
+        this.updateBook = () => {
             if (this.state.firstName !== currentAuthor.firstName ||
                 this.state.lastName !== currentAuthor.lastName) {
                     console.log("Houveram modificações")
@@ -54,7 +54,7 @@ class UpdateAuthor extends React.Component {
                             firstName: this.state.firstName,
                             lastName: this.state.lastName
                         }
-                        this.props.updateAuthor(data);
+                        this.props.updateBook(data);
                     } else {
                         if (!this.state.firstName) {
                             this.setState( { 
@@ -138,7 +138,7 @@ class UpdateAuthor extends React.Component {
                     
                     <div className={"col-3"}>
                         <Button variant="contained" color="primary" className={classes.button}
-                                onClick={() => this.updateAuthor()}>
+                                onClick={() => this.updateBook()}>
                             Salvar
                         </Button>
                     </div>
@@ -154,7 +154,7 @@ const mapStateToProps = (state) => ({
 
 const mapDispatchToProps = (dispatch) => ({
     closeModal: () => dispatch({ type: 'ON_CLOSE_MODAL' }),
-    updateAuthor: (data) => dispatch({ type: 'ON_UPDATE_AUTHOR', data: data }),
+    updateBook: (data) => dispatch({ type: 'ON_UPDATE_AUTHOR', data: data }),
 });
 
-export default connect(mapStateToProps, mapDispatchToProps)(UpdateAuthor)
+export default connect(mapStateToProps, mapDispatchToProps)(UpdateBook)

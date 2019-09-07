@@ -69,6 +69,25 @@ const deleteBookByAuthor = (idAuthor, idBook) => {
         })
 };
 
+const updateAuthor = (data) => {
+    let url = REACT_APP_DNS + `/authors/${data.id}`;
+    let params = {
+        firstName: data.firstName,
+        lastName: data.lastName
+    }
+
+    console.log(params);
+    axios.patch(url, params)
+        .then(result => {
+            console.log(result);
+            getAuthors();
+            Store.dispatch({ type: 'ON_CLOSE_MODAL' })
+            // chamar modal dizendo que o item foi atualizado
+        })
+        .catch(e => {
+            console.log(e)
+        })
+};
 
 export const GeneralReducer = (state = initialState, action) => {
 
@@ -91,6 +110,11 @@ export const GeneralReducer = (state = initialState, action) => {
             return { ...state }
 
 
+        case 'ON_UPDATE_AUTHOR':
+            console.log(action);
+            updateAuthor(action.data)
+            return { ...state }
+    
         case 'ON_BOOKS_BY_AUTHOR':
             return { ...state, booksByAuthor: action.booksByAuthor, page: "BooksByAuthor" }  
 
