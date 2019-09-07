@@ -119,7 +119,7 @@ class CreateBook extends React.Component {
 
                 <div className={"row"}>
                     <div className={"col-8 text-right"}>
-                    <Button color="primary" className={classes.button} onClick={() => props.closeModal()}>
+                    <Button color="primary" className={classes.button} onClick={() => this.props.closeModal()}>
                         Cancelar
                     </Button>
                     </div>
