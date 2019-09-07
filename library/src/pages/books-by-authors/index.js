@@ -104,7 +104,7 @@ const BooksByAuthor = (props) => {
                              <Tooltip title="Adicionar livro" aria-label="add" 
                                                 onClick={e => props.openModal("CREATE_BOOK", "Adicionar livro", "xs")}
                             >
-                                <Fab color="primary" className={classes.absolute + " " + classes.orange}>
+                                <Fab color="primary" className={classes.absolute}>
                                     <AddIcon />
                                 </Fab>
                             </Tooltip>
