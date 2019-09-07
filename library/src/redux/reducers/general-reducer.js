@@ -32,7 +32,6 @@ const getBooksByAuthors = (id) => {
     let url = REACT_APP_DNS + `/authors/${id}/books`;
     axios.get(url)
         .then(result => {
-            console.log(result);
             Store.dispatch({ type: 'ON_BOOKS_BY_AUTHOR', booksByAuthor: result.data.reverse() })
         })
         .catch(e => {
@@ -51,7 +50,6 @@ const createAuthor = (data) => {
     console.log(params);
     axios.patch(url, params)
         .then(result => {
-            console.log(result);
             getAuthors();
             Store.dispatch({ type: 'ON_CLOSE_MODAL' })
             Store.dispatch({ type: 'ON_OPEN_MODAL', openModal: true, modalType: 'MODAL_SUCCESS', modalTitle: 'ADICIONAR AUTOR', modalSize: 'xs' })            
@@ -64,7 +62,7 @@ const createAuthor = (data) => {
         })
 }
 
-// Excluirr autor 
+// Excluir autor 
 const deleteAuthor = (id) => {
     let url = REACT_APP_DNS + `/authors/${id}`;
     axios.delete(url)
@@ -81,12 +79,36 @@ const deleteAuthor = (id) => {
         })
 };
 
+
+
+// Criar livro do autor
+const createBook = (data) => {
+    let url = REACT_APP_DNS + `/authors/${data.id}/books`;
+    let params = {
+        title: data.title,
+        isbn: data.isbn
+    }
+
+    console.log(params);
+    axios.post(url, params)
+        .then(result => {
+            getBooksByAuthors(data.id);
+            Store.dispatch({ type: 'ON_CLOSE_MODAL' })
+            Store.dispatch({ type: 'ON_OPEN_MODAL', openModal: true, modalType: 'MODAL_SUCCESS', modalTitle: 'ADICIONAR AUTOR', modalSize: 'xs' })            
+        })
+        .catch(e => {
+            console.log(e)
+            Store.dispatch({ type: 'ON_CLOSE_MODAL' })
+            Store.dispatch({ type: 'ON_OPEN_MODAL', openModal: true, modalType: 'MODAL_ERROR', modalTitle: "ERROR!", modalSize: 'xs' })
+
+        })
+}
+
 // Excluir livro do autor
 const deleteBookByAuthor = (idAuthor, idBook) => {
     let url = REACT_APP_DNS + `/authors/${idAuthor}/books/${idBook}`;
     axios.delete(url)
         .then(result => {
-            console.log(result);
             Store.dispatch({ type: 'ON_CLOSE_MODAL' })
             Store.dispatch({ type: 'ON_OPEN_MODAL', openModal: true, modalType: 'MODAL_SUCCESS', modalTitle: 'Excluído com sucesso', modalSize: 'xs' })
             getBooksByAuthors(idAuthor);
@@ -99,7 +121,7 @@ const deleteBookByAuthor = (idAuthor, idBook) => {
         })
 };
 
-// Atualiza dados do autor
+// Atualizar dados do autor
 const updateAuthor = (data) => {
     let url = REACT_APP_DNS + `/authors/${data.id}`;
     let params = {
@@ -123,7 +145,7 @@ const updateAuthor = (data) => {
         })
 };
 
-// Atualiza dados do livro de um autor
+// Atualizar dados do livro de um autor
 const updateBook = (data) => {
     let url = REACT_APP_DNS + `/authors/${data.idAuthor}/books/${data.id}`;
     let params = {
@@ -156,21 +178,17 @@ export const GeneralReducer = (state = initialState, action) => {
         case 'ON_CLOSE_SIDEBAR':
             return { ...state, openSideBar: false };
         case 'ON_AUTHORS':
-            // console.log(action.authors);
             return { ...state, authors: action.authors, page: "Authors" }
         
         case 'ON_CREATE_AUTHOR':
-            console.log(action);
             createAuthor(action.data)
             return { ...state }
         case 'ON_DELETE_AUTHOR':
-            console.log(action.id);
             deleteAuthor(action.id);
             return { ...state }
 
 
         case 'ON_UPDATE_AUTHOR':
-            console.log(action);
             updateAuthor(action.data)
             return { ...state }
     
@@ -178,25 +196,23 @@ export const GeneralReducer = (state = initialState, action) => {
             return { ...state, booksByAuthor: action.booksByAuthor, page: "BooksByAuthor" }  
 
         case 'ON_UPDATE_BOOK':
-            console.log(action);
             updateBook(action.data)
             return { ...state }
 
+        case 'ON_CREATE_BOOK':
+            createBook(action.data)
+            return { ...state }            
+
         case 'ON_DELETE_BOOK_BY_AUTHOR':
-            console.log("AQUUIII")
-            console.log(action);
             deleteBookByAuthor(action.idAuthor, action.idBook);
             return { ...state }
         
 
         case 'ON_GET_BOOKS_BY_AUTHOR':
-            console.log(action.id);
             getBooksByAuthors(action.id);
             return { ...state, currentAuthor: action.id}  
 
         case 'ON_CURRENT_AUTHOR':
-            console.log(action);
-            // deleteAuthor(action.id)
             return { ...state, currentAuthor: action.id, page: "Author" }
 
         case 'ON_HOME':

@@ -14,6 +14,9 @@ import Tooltip from '@material-ui/core/Tooltip';
 import TextField from '@material-ui/core/TextField';
 import SentimentDissatisfiedIcon from '@material-ui/icons/SentimentDissatisfied';
 import ArrowBackOutlinedIcon from '@material-ui/icons/ArrowBackOutlined';
+import Fab from '@material-ui/core/Fab';
+import AddIcon from '@material-ui/icons/Add';
+
 
 const useStyles = makeStyles(theme => ({
     root: {
@@ -29,8 +32,20 @@ const useStyles = makeStyles(theme => ({
         margin: 10,
         color: '#fff',
         backgroundColor: deepOrange[500],
-    }
-    
+    },
+    fab: {
+        margin: theme.spacing(2),
+        backgroundColor: deepOrange[500],
+    },
+    absolute: {
+        position: 'absolute',
+        bottom: theme.spacing(2),
+        right: theme.spacing(3),
+    },
+    orange: {
+        backgroundColor: deepOrange[500],
+        color: "#fff"
+    },
   }));
 
   
@@ -84,10 +99,17 @@ const BooksByAuthor = (props) => {
                     props.booksByAuthor.length>0?
                 
                         <Grid container spacing={5}>
+                             <Tooltip title="Adicionar autor" aria-label="add" 
+                                                onClick={e => props.openModal("CREATE_BOOK", "Adicionar livro", "xs")}
+                                        >
+                                            <Fab color="primary" className={classes.absolute + " " + classes.orange}>
+                                                <AddIcon />
+                                            </Fab>
+                                        </Tooltip>
                             <h2>Lista de livros de um autor {currentAuthor.firstName} {currentAuthor.lastName}</h2>
 
                             <div className={"col-2"}></div>
-                                <div className={"col-8"}>
+                                <div className={"col-8 text-center"}>
                                     <TextField
                                         id="outlined-full-width"
                                         style={{ margin: 9, background: 'white' }}
@@ -104,6 +126,7 @@ const BooksByAuthor = (props) => {
                             {
                                 props.booksByAuthor.map((book, index) => 
                                     <Grid item xs={6}>
+                                        
                                         <Paper  className={classes.paper}>  
 
                                         <CardHeader
@@ -151,8 +174,10 @@ const BooksByAuthor = (props) => {
                             <div className={"row"}>
                                 <div className={"col-2"}></div>
                                 <div className={"col-8"}>
-                                    <h5 className={"text-center"}>O autor "{currentAuthor.firstName} {currentAuthor.lastName}" <br/>
-                                    não contém livros cadastrados!</h5>
+                                    <h5 className={"text-center"}>
+                                        O autor "{currentAuthor.firstName} {currentAuthor.lastName}" <br/>
+                                        não contém livros cadastrados!
+                                    </h5>
                                     <div className={"text-center"}>
                                         <SentimentDissatisfiedIcon color="disabled" fontSize="large"/>
                                     </div>
