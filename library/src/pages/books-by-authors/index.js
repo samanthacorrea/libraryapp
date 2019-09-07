@@ -108,14 +108,7 @@ const BooksByAuthor = (props) => {
                                     <AddIcon />
                                 </Fab>
                             </Tooltip>
-                            <div className={"col-12 text-center"}>
-                                <h2 className="text-uppercase text-center mt-n4 mb-5" style={{letterSpacing: "1px", color: "rgb(109, 109, 109)"}}>
-                                    <b>
-                                        Livros de {currentAuthor.firstName} {currentAuthor.lastName}
-                                    </b>
-                                </h2>
-                            </div>
-
+                    
                             {/* < div className={"col-2"}></div>
                             <div className={"col-8 text-center"}>
                                 <TextField
