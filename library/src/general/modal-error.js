@@ -1,8 +1,8 @@
-import React from 'react';
-import { connect } from "react-redux";
+import React from 'react'
+import { connect } from "react-redux"
 import Button from '@material-ui/core/Button';
 import { makeStyles } from '@material-ui/core/styles';
-import CheckCircleOutlineOutlinedIcon from '@material-ui/icons/CheckCircleOutlineOutlined';
+import ErrorOutlineOutlinedIcon from '@material-ui/icons/ErrorOutlineOutlined';
 
 const useStyles = makeStyles(theme => ({
     button: {
@@ -14,17 +14,18 @@ const useStyles = makeStyles(theme => ({
   }));
   
 
-const ConfirmDeleteBook = (props) => {
+const ModalError = (props) => {
     const classes = useStyles();
   
     return (
         <div>
             <div className="text-center mt-3">
-                O livro foi excluído com sucesso! 
+                Ocorreu um erro e não foi possível <br/>realizar essa operação!
+                Tente novamente. 
             </div>
 
             <div className="text-center mb-3">
-                <CheckCircleOutlineOutlinedIcon color="primary" fontSize="large"/>
+                <ErrorOutlineOutlinedIcon color="secondary" fontSize="large"/>
             </div>
 
             <div className={"row text-center"}>
@@ -36,6 +37,7 @@ const ConfirmDeleteBook = (props) => {
                 </div>
             </div>
             
+            
         </div>  
 
     )
@@ -46,7 +48,6 @@ const mapStateToProps = (state) => ({
 
 const mapDispatchToProps = (dispatch) => ({
     closeModal: () => dispatch({ type: 'ON_CLOSE_MODAL' }),
-    deleteAuthor: (id) => dispatch({ type: 'ON_DELETE_AUTHOR', id: id}),
 });
 
-export default connect(mapStateToProps, mapDispatchToProps)(ConfirmDeleteBook)
+export default connect(mapStateToProps, mapDispatchToProps)(ModalError)

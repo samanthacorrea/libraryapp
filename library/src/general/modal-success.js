@@ -14,13 +14,13 @@ const useStyles = makeStyles(theme => ({
   }));
   
 
-const ConfirmDeleteAuthor = (props) => {
+const ModalSuccess = (props) => {
     const classes = useStyles();
   
     return (
         <div>
             <div className="text-center mt-3">
-                O autor foi excluído com sucesso! 
+                Essa operação foi realizada com sucesso!
             </div>
 
             <div className="text-center mb-3">
@@ -47,7 +47,6 @@ const mapStateToProps = (state) => ({
 
 const mapDispatchToProps = (dispatch) => ({
     closeModal: () => dispatch({ type: 'ON_CLOSE_MODAL' }),
-    deleteAuthor: (id) => dispatch({ type: 'ON_DELETE_AUTHOR', id: id}),
 });
 
-export default connect(mapStateToProps, mapDispatchToProps)(ConfirmDeleteAuthor)
+export default connect(mapStateToProps, mapDispatchToProps)(ModalSuccess)

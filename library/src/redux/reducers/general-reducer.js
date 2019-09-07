@@ -13,7 +13,7 @@ const initialState = {
 
 const REACT_APP_DNS = "https://bibliapp.herokuapp.com/api";
 
-// Lista autores
+// Listar autores
 const getAuthors = () => {
     let url = REACT_APP_DNS + '/authors';
     axios.get(url)
@@ -27,7 +27,7 @@ const getAuthors = () => {
 };
 getAuthors();
 
-// Lista livros de um autor
+// Listar livros de um autor
 const getBooksByAuthors = (id) => {
     let url = REACT_APP_DNS + `/authors/${id}/books`;
     axios.get(url)
@@ -40,17 +40,44 @@ const getBooksByAuthors = (id) => {
         })
 };
 
-// Excluir autor 
+// Criar autor
+const createAuthor = (firstName, lastName) => {
+    let url = REACT_APP_DNS + `/authors`;
+    let params = {
+        firstName: firstName,
+        lastName: lastName
+    }
+
+    console.log(params);
+    axios.patch(url, params)
+        .then(result => {
+            console.log(result);
+            getAuthors();
+            Store.dispatch({ type: 'ON_CLOSE_MODAL' })
+            Store.dispatch({ type: 'ON_OPEN_MODAL', openModal: true, modalType: 'MODAL_SUCCESS', modalTitle: 'ADICIONAR AUTOR', modalSize: 'xs' })            
+        })
+        .catch(e => {
+            console.log(e)
+            Store.dispatch({ type: 'ON_CLOSE_MODAL' })
+            Store.dispatch({ type: 'ON_OPEN_MODAL', openModal: true, modalType: 'MODAL_ERROR', modalTitle: "ERROR!", modalSize: 'xs' })
+
+        })
+}
+
+// Excluirr autor 
 const deleteAuthor = (id) => {
     let url = REACT_APP_DNS + `/authors/${id}`;
     axios.delete(url)
         .then(result => {
             Store.dispatch({ type: 'ON_CLOSE_MODAL' })
-            Store.dispatch({ type: 'ON_OPEN_MODAL', openModal: true, modalType: 'CONFIRM_DELETE_AUTHOR', modalTitle: 'Excluído com sucesso', modalSize: 'xs' })
+            Store.dispatch({ type: 'ON_OPEN_MODAL', openModal: true, modalType: 'MODAL_SUCCESS', modalTitle: 'Excluído com sucesso', modalSize: 'xs' })
             getAuthors();
         })
         .catch(e => {
             console.log(e)
+            Store.dispatch({ type: 'ON_CLOSE_MODAL' })
+            Store.dispatch({ type: 'ON_OPEN_MODAL', openModal: true, modalType: 'MODAL_ERROR', modalTitle: "ERROR!", modalSize: 'xs' })
+
         })
 };
 
@@ -61,11 +88,14 @@ const deleteBookByAuthor = (idAuthor, idBook) => {
         .then(result => {
             console.log(result);
             Store.dispatch({ type: 'ON_CLOSE_MODAL' })
-            Store.dispatch({ type: 'ON_OPEN_MODAL', openModal: true, modalType: 'CONFIRM_DELETE_BOOK', modalTitle: 'Excluído com sucesso', modalSize: 'xs' })
+            Store.dispatch({ type: 'ON_OPEN_MODAL', openModal: true, modalType: 'MODAL_SUCCESS', modalTitle: 'Excluído com sucesso', modalSize: 'xs' })
             getBooksByAuthors(idAuthor);
         })
         .catch(e => {
             console.log(e)
+            Store.dispatch({ type: 'ON_CLOSE_MODAL' })
+            Store.dispatch({ type: 'ON_OPEN_MODAL', openModal: true, modalType: 'MODAL_ERROR', modalTitle: "ERROR!", modalSize: 'xs' })
+
         })
 };
 
@@ -83,33 +113,34 @@ const updateAuthor = (data) => {
             console.log(result);
             getAuthors();
             Store.dispatch({ type: 'ON_CLOSE_MODAL' })
-            // chamar modal dizendo que o item foi atualizado
+            Store.dispatch({ type: 'ON_OPEN_MODAL', openModal: true, modalType: 'MODAL_SUCCESS', modalTitle: 'Atualizado com sucesso', modalSize: 'xs' })            
         })
         .catch(e => {
             console.log(e)
+            Store.dispatch({ type: 'ON_CLOSE_MODAL' })
+            Store.dispatch({ type: 'ON_OPEN_MODAL', openModal: true, modalType: 'MODAL_ERROR', modalTitle: "ERROR!", modalSize: 'xs' })
+
         })
 };
 
 // Atualiza dados do livro de um autor
 const updateBook = (data) => {
-    console.log(data)
     let url = REACT_APP_DNS + `/authors/${data.idAuthor}/books/${data.id}`;
-    console.log(url)
     let params = {
         isbn: data.isbn,
         title: data.title
     }
-
-    console.log(params);
     axios.put(url, params)
         .then(result => {
-            console.log(result);
             Store.dispatch({ type: 'ON_CLOSE_MODAL' })
+            Store.dispatch({ type: 'ON_OPEN_MODAL', openModal: true, modalType: 'MODAL_SUCCESS', modalTitle: 'Atualizado com sucesso', modalSize: 'xs' })
             getBooksByAuthors(data.     idAuthor);
-            // chamar modal dizendo que o item foi atualizado
         })
         .catch(e => {
             console.log(e)
+            Store.dispatch({ type: 'ON_CLOSE_MODAL' })
+            Store.dispatch({ type: 'ON_OPEN_MODAL', openModal: true, modalType: 'MODAL_ERROR', modalTitle: "ERROR!", modalSize: 'xs' })
+
         })
 };
 
