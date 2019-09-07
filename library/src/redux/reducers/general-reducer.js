@@ -18,7 +18,6 @@ const getAuthors = () => {
     let url = REACT_APP_DNS + '/authors';
     axios.get(url)
         .then(result => {
-            console.log(result);
             Store.dispatch({ type: 'ON_AUTHORS', authors: result.data.reverse() })
         })
         .catch(e => {
@@ -46,8 +45,6 @@ const createAuthor = (data) => {
         firstName: data.firstName,
         lastName: data.lastName
     }
-
-    console.log(params);
     axios.patch(url, params)
         .then(result => {
             getAuthors();
@@ -129,7 +126,6 @@ const updateAuthor = (data) => {
         lastName: data.lastName
     }
 
-    console.log(params);
     axios.patch(url, params)
         .then(result => {
             console.log(result);
@@ -227,7 +223,7 @@ export const GeneralReducer = (state = initialState, action) => {
 
         case 'ON_UPDATE_MODAL_SIZE':
             return { ...state, modalSize: action.modalSize };
-            
+
         default:
             return { ...state }
     }

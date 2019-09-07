@@ -32,23 +32,19 @@ class UpdateAuthor extends React.Component {
 
         this.handleChangeFirstName = (e) => {
             this.state.data["firstName"] = e.target.value;
-            console.log(this.state.data)
             this.setState(this.state.data);
         };
 
         this.handleChangeLastName = (e) => {
             this.state.data["lastName"] = e.target.value;
-            console.log(this.state.data)
             this.setState(this.state.data);
         };
 
         this.updateAuthor = () => {
             if (this.state.firstName !== currentAuthor.firstName ||
                 this.state.lastName !== currentAuthor.lastName) {
-                    console.log("Houveram modificações")
                     this.setState({ hasChanges: false })
                     if (this.state.firstName && this.state.lastName) {
-                        console.log("Atualizar")
                         let data = {
                             id: currentAuthor.id,
                             firstName: this.state.firstName,

@@ -20,7 +20,6 @@ class UpdateBook extends React.Component {
         let currentBook = JSON.parse(localStorage.getItem('@library/currentBook'));
         let currentAuthor = JSON.parse(localStorage.getItem('@library/currentAuthor'));
 
-        console.log(currentBook);
         this.state = {
             title: currentBook.title,
             isbn: currentBook.isbn,
@@ -34,13 +33,11 @@ class UpdateBook extends React.Component {
 
         this.handleChangeTitle = (e) => {
             this.state.data["title"] = e.target.value;
-            console.log(this.state.data)
             this.setState(this.state.data);
         };
 
         this.handleChangeIsbn = (e) => {
             this.state.data["isbn"] = e.target.value;
-            console.log(this.state.data)
             this.setState(this.state.data);
         };
 
@@ -49,7 +46,6 @@ class UpdateBook extends React.Component {
                 this.state.isbn !== currentBook.title) {
                     this.setState({ hasChanges: false })
                     if (this.state.title && this.state.isbn) {
-                        console.log("Atualizar")
                         let data = {
                             id: currentBook.id,
                             idAuthor: currentAuthor.id,
