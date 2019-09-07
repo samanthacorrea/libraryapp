@@ -46,6 +46,10 @@ const useStyles = makeStyles(theme => ({
         backgroundColor: deepOrange[500],
         color: "#fff"
     },
+    position: {
+        position: "fixed",
+        zIndex: "99"
+    }
   }));
 
   
@@ -83,126 +87,127 @@ const BooksByAuthor = (props) => {
     return (
         <div>
 			<Appbar title={"Livros de " + currentAuthor.firstName + " " + currentAuthor.lastName}/>
-
-            <div className={"text-left"}>
-                <Tooltip 
-                    title="Voltar" 
-                    className={"mt-4 ml-4"}
-                    onClick={() => props.backToHome()}
-                    >
-                    <IconButton aria-label="edit">
-                        <ArrowBackOutlinedIcon fontSize="large"/>
-                    </IconButton>
-                </Tooltip>
-            </div>
-            <div className={"container"}>
-                 <div className={"row"}>
-                 {
-                    props.booksByAuthor.length>0?
-                
-                        <Grid container spacing={5}>
-                             <Tooltip title="Adicionar livro" 
-                                      aria-label="add" 
-                                      onClick={e => props.openModal("CREATE_BOOK", "Adicionar livro", "xs")}
-                            >
-                                <Fab color="primary" className={classes.absolute}>
-                                    <AddIcon />
-                                </Fab>
-                            </Tooltip>
+            <div className="pt-5">
+                <div className={"text-left"}>
+                    <Tooltip 
+                        title="Voltar" 
+                        className={"mt-4 ml-4 " + classes.position}
+                        onClick={() => props.backToHome()}
+                        >
+                        <IconButton aria-label="edit">
+                            <ArrowBackOutlinedIcon fontSize="large"/>
+                        </IconButton>
+                    </Tooltip>
+                </div>
+                <div className={"container pt-5"}>
+                    <div className={"row"}>
+                    {
+                        props.booksByAuthor.length>0?
                     
-                            {/* < div className={"col-2"}></div>
-                            <div className={"col-8 text-center"}>
-                                <TextField
-                                    id="outlined-full-width"
-                                    style={{ margin: 9, background: 'white' }}
-                                    placeholder="Pesquisar por livro do autor..."
-                                    fullWidth
-                                    margin="normal"
-                                    variant="outlined"
-                                    InputLabelProps={{
-                                        shrink: true,
-                                    }}
-                                />
-                            </div>
-                            <div className={"col-2"}></div> */}
-                            {
-                                props.booksByAuthor.map((book, index) => 
-                                    <Grid item xs={6}>
-                                        
-                                        <Paper  className={classes.paper}>  
-
-                                        <CardHeader
-                                                avatar={
-                                                    <Avatar aria-label="recipe" className={classes.avatar}>
-                                                        {index+1}
-                                                    </Avatar>
-                                                }
-                                                action={
-                                                    <span>
-                                                        <Tooltip 
-                                                                title="Editar" 
-                                                                className={"mt-3"}
-                                                                onClick={() => updateBook(book.id, book.title, book.isbn)}
-                                                                >
-                                                            <IconButton aria-label="edit">
-                                                                <EditIcon />
-                                                            </IconButton>
-                                                        </Tooltip>
-
-                                                        <Tooltip 
-                                                                title="Excluir" 
-                                                                className={"mt-3"}
-                                                                onClick={() => deleteBook(book.id, book.title)}
-                                                                >
-                                                            <IconButton aria-label="delete">
-                                                                <DeleteIcon />
-                                                            </IconButton>
-                                                        </Tooltip>
-                                                    </span>
-                                                }
-                                                className="text-left"
-                                                title={"Título do livro: " + book.title}
-                                                subheader={"ISBN: " + book.isbn}
-
-                                            />
-                                        
-                                        </Paper>
-                                    </Grid>
-                                )
-                            }
-                        </Grid>
-                        :
-                        <div className={"container pt-5"}  style={{color: "rgb(109, 109, 109)"}}>
-                            <div className={"row"}>
-                                <div className={"col-2"}></div>
-                                <div className={"col-8"}>
-                                    <h5 className={"text-center"}>
-                                        O autor "{currentAuthor.firstName} {currentAuthor.lastName}" <br/>
-                                        não contém livros cadastrados!
-                                    </h5>
-                                    <div className={"text-center"}>
-                                        <SentimentDissatisfiedIcon color="disabled" fontSize="large"/>
-                                    </div>
-
-                                    <div className={"text-center mt-5"}>
-                                        Adicione um novo livro<br/>
-                                        <Tooltip title="Adicionar livro" aria-label="add" 
-                                                onClick={e => props.openModal("CREATE_BOOK", "Adicionar livro", "xs")}>
-                                                <Fab color="primary" className={classes.orange}>
-                                                    <AddIcon />
-                                                </Fab>
-                                            </Tooltip>
-                                    </div>
-
+                            <Grid container spacing={5}>
+                                <Tooltip title="Adicionar livro" 
+                                        aria-label="add" 
+                                        onClick={e => props.openModal("CREATE_BOOK", "Adicionar livro", "xs")}
+                                >
+                                    <Fab color="primary" className={classes.absolute}>
+                                        <AddIcon />
+                                    </Fab>
+                                </Tooltip>
+                        
+                                {/* < div className={"col-2"}></div>
+                                <div className={"col-8 text-center"}>
+                                    <TextField
+                                        id="outlined-full-width"
+                                        style={{ margin: 9, background: 'white' }}
+                                        placeholder="Pesquisar por livro do autor..."
+                                        fullWidth
+                                        margin="normal"
+                                        variant="outlined"
+                                        InputLabelProps={{
+                                            shrink: true,
+                                        }}
+                                    />
                                 </div>
-                                <div className={"col-2"}></div>
-                            </div>
-                        </div>
+                                <div className={"col-2"}></div> */}
+                                {
+                                    props.booksByAuthor.map((book, index) => 
+                                        <Grid item xs={6}>
+                                            
+                                            <Paper  className={classes.paper}>  
 
-                }
-                 </div>
-            </div>
-        
+                                            <CardHeader
+                                                    avatar={
+                                                        <Avatar aria-label="recipe" className={classes.avatar}>
+                                                            {index+1}
+                                                        </Avatar>
+                                                    }
+                                                    action={
+                                                        <span>
+                                                            <Tooltip 
+                                                                    title="Editar" 
+                                                                    className={"mt-3"}
+                                                                    onClick={() => updateBook(book.id, book.title, book.isbn)}
+                                                                    >
+                                                                <IconButton aria-label="edit">
+                                                                    <EditIcon />
+                                                                </IconButton>
+                                                            </Tooltip>
+
+                                                            <Tooltip 
+                                                                    title="Excluir" 
+                                                                    className={"mt-3"}
+                                                                    onClick={() => deleteBook(book.id, book.title)}
+                                                                    >
+                                                                <IconButton aria-label="delete">
+                                                                    <DeleteIcon />
+                                                                </IconButton>
+                                                            </Tooltip>
+                                                        </span>
+                                                    }
+                                                    className="text-left"
+                                                    title={"Título do livro: " + book.title}
+                                                    subheader={"ISBN: " + book.isbn}
+
+                                                />
+                                            
+                                            </Paper>
+                                        </Grid>
+                                    )
+                                }
+                            </Grid>
+                            :
+                            <div className={"container pt-5"}  style={{color: "rgb(109, 109, 109)"}}>
+                                <div className={"row"}>
+                                    <div className={"col-2"}></div>
+                                    <div className={"col-8"}>
+                                        <h5 className={"text-center"}>
+                                            O autor "{currentAuthor.firstName} {currentAuthor.lastName}" <br/>
+                                            não contém livros cadastrados!
+                                        </h5>
+                                        <div className={"text-center"}>
+                                            <SentimentDissatisfiedIcon color="disabled" fontSize="large"/>
+                                        </div>
+
+                                        <div className={"text-center mt-5"}>
+                                            Adicione um novo livro<br/>
+                                            <Tooltip title="Adicionar livro" aria-label="add" 
+                                                    onClick={e => props.openModal("CREATE_BOOK", "Adicionar livro", "xs")}>
+                                                    <Fab color="primary" className={classes.orange}>
+                                                        <AddIcon />
+                                                    </Fab>
+                                                </Tooltip>
+                                        </div>
+
+                                    </div>
+                                    <div className={"col-2"}></div>
+                                </div>
+                            </div>
+
+                    }
+                    </div>
+                </div>
+
+            </div>        
         </div>
     )
 }
