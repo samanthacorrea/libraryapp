@@ -41,11 +41,11 @@ const getBooksByAuthors = (id) => {
 };
 
 // Criar autor
-const createAuthor = (firstName, lastName) => {
+const createAuthor = (data) => {
     let url = REACT_APP_DNS + `/authors`;
     let params = {
-        firstName: firstName,
-        lastName: lastName
+        firstName: data.firstName,
+        lastName: data.lastName
     }
 
     console.log(params);
@@ -159,6 +159,10 @@ export const GeneralReducer = (state = initialState, action) => {
             // console.log(action.authors);
             return { ...state, authors: action.authors, page: "Authors" }
         
+        case 'ON_CREATE_AUTHOR':
+            console.log(action);
+            createAuthor(action.data)
+            return { ...state }
         case 'ON_DELETE_AUTHOR':
             console.log(action.id);
             deleteAuthor(action.id);

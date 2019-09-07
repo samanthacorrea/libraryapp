@@ -14,6 +14,7 @@ import CardHeader from '@material-ui/core/CardHeader';
 import Fab from '@material-ui/core/Fab';
 import FolderOpenIcon from '@material-ui/icons/FolderOpen';
 import AddIcon from '@material-ui/icons/Add';
+import SentimentDissatisfiedIcon from '@material-ui/icons/SentimentDissatisfied';
 
 const useStyles = makeStyles(theme => ({
     root: {
@@ -90,17 +91,18 @@ const Authors = (props) => {
 
     return (
         <div>
-            <Tooltip title="Adicionar autor" aria-label="add" onClick={e => props.openSideBar()}
-            >
-                <Fab color="primary" className={classes.absolute + " " + classes.orange}>
-                    <AddIcon />
-                </Fab>
-            </Tooltip>
-            
 
             {
                 props.authors?
                     <div className={"container pt-5"}>
+                        <Tooltip title="Adicionar autor" aria-label="add" 
+                                onClick={e => props.openModal("CREATE_AUTHOR", "Adicionar autor", "xs")}
+                        >
+                            <Fab color="primary" className={classes.absolute + " " + classes.orange}>
+                                <AddIcon />
+                            </Fab>
+                        </Tooltip>
+                                                
                         <div className={"row"}>
                             <Grid container spacing={3}>
                                 <div className={"col-2"}></div>
@@ -174,8 +176,30 @@ const Authors = (props) => {
                     </div>
  
                     :
-                    <div>
-                        Carregando...
+                    <div className={"container pt-5"}>
+                        <div className={"row"}>
+                            <div className={"col-2"}></div>
+                            <div className={"col-8"}>
+                                <h5 className={"text-center"}>
+                                    Ainda não há autores<br/>
+                                    cadastrados.
+                                </h5>
+                                <div className={"text-center"}>
+                                    <SentimentDissatisfiedIcon color="disabled" fontSize="large"/>
+                                </div>
+                                <div className={"text-center mt-5"}>
+                                    Adicione um novo autor<br/>
+                                    <Tooltip title="Adicionar autor" aria-label="add" 
+                                            onClick={e => props.openModal("CREATE_AUTHOR", "Adicionar autor", "xs")}>
+                                            <Fab color="primary" className={classes.orange}>
+                                                <AddIcon />
+                                            </Fab>
+                                        </Tooltip>
+                                </div>
+
+                            </div>
+                            <div className={"col-2"}></div>
+                        </div>
                     </div>
             }
         </div>
