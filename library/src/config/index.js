@@ -2,7 +2,7 @@ import React from 'react'
 
 // Pages
 import Authors from '../pages/authors'
-
+import BooksByAuthors from '../pages/books-by-authors'
 // Modals
 import FirstModal from '../pages/authors/modals/first-modal'
 
@@ -13,6 +13,7 @@ const MODALS = {
 
 const PAGES = {
     'Authors': <Authors />,
+    'BooksByAuthor': <BooksByAuthors />
 };
 
 

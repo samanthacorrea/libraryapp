@@ -7,8 +7,8 @@ import ModalSwitcher from './general/modalswitcher'
 const App = (props) => {
 	return (
 		<Provider store={Store}>
-            <ModalSwitcher />
             <PageSwitcher />
+			<ModalSwitcher />
 		</Provider>
 	);
 }
