@@ -46,9 +46,6 @@ const useStyles = makeStyles(theme => ({
         backgroundColor: deepOrange[500],
         color: "#fff"
     },
-    progress: {
-        margin: theme.spacing(2),
-    },
   }));
 
   

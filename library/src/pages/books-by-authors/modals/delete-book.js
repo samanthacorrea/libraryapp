@@ -15,7 +15,6 @@ const useStyles = makeStyles(theme => ({
 
 const DeleteBook = (props) => {
     const classes = useStyles();
-    let currentAuthor = JSON.parse(localStorage.getItem('@library/currentAuthor'));
     let currentBook = JSON.parse(localStorage.getItem('@library/currentBook'));
 
     const deleteBook = () => {

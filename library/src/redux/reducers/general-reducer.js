@@ -156,7 +156,7 @@ const updateBook = (data) => {
         .then(result => {
             Store.dispatch({ type: 'ON_CLOSE_MODAL' })
             Store.dispatch({ type: 'ON_OPEN_MODAL', openModal: true, modalType: 'MODAL_SUCCESS', modalTitle: 'Atualizado com sucesso', modalSize: 'xs' })
-            getBooksByAuthors(data.     idAuthor);
+            getBooksByAuthors(data.idAuthor);
         })
         .catch(e => {
             console.log(e)

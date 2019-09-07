@@ -89,7 +89,8 @@ class UpdateBook extends React.Component {
 
             <div>
                  <div className="row">
-                    <div className={this.state.hasChanges?"col-12":"display-none"}>
+                    <div className={"col-12"}
+                            style={this.state.hasChanges?{}:{display: "none"}}>
                         <i>Não foram detectadas alterações.</i>
                     </div>
                     <div className="col-12">
