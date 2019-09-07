@@ -17,56 +17,60 @@ const classes = makeStyles(theme => ({
 class UpdateBook extends React.Component {
     constructor(props) {
         super(props)
+        let currentBook = JSON.parse(localStorage.getItem('@library/currentBook'));
         let currentAuthor = JSON.parse(localStorage.getItem('@library/currentAuthor'));
 
+        console.log(currentBook);
         this.state = {
-            firstName: currentAuthor.firstName,
-            lastName: currentAuthor.lastName,
-            errorFirstName: false,
-            errorLastName: false,
-            htFirstName: "",
-            htLastName: "",
+            title: currentBook.title,
+            isbn: currentBook.isbn,
+            errorTitle: false,
+            errorIsbn: false,
+            htTitle: "",
+            htIsbn: "",
             data: {},
             hasChanges: false
         }
 
-        this.handleChangeFirstName = (e) => {
-            this.state.data["firstName"] = e.target.value;
+        this.handleChangeTitle = (e) => {
+            this.state.data["title"] = e.target.value;
             console.log(this.state.data)
             this.setState(this.state.data);
         };
 
-        this.handleChangeLastName = (e) => {
-            this.state.data["lastName"] = e.target.value;
+        this.handleChangeIsbn = (e) => {
+            this.state.data["isbn"] = e.target.value;
             console.log(this.state.data)
             this.setState(this.state.data);
         };
 
         this.updateBook = () => {
-            if (this.state.firstName !== currentAuthor.firstName ||
-                this.state.lastName !== currentAuthor.lastName) {
+            if (this.state.title !== currentBook.title ||
+                this.state.isbn !== currentBook.title) {
                     console.log("Houveram modificações")
                     this.setState({ hasChanges: false })
-                    if (this.state.firstName && this.state.lastName) {
+                    if (this.state.title && this.state.isbn) {
                         console.log("Atualizar")
                         let data = {
-                            id: currentAuthor.id,
-                            firstName: this.state.firstName,
-                            lastName: this.state.lastName
+                            id: currentBook.id,
+                            idAuthor: currentAuthor.id,
+                            title: this.state.title,
+                            isbn: this.state.isbn
                         }
+                        console.log(data);
                         this.props.updateBook(data);
                     } else {
-                        if (!this.state.firstName) {
+                        if (!this.state.title) {
                             this.setState( { 
-                                errorFirstName: true, 
-                                htFirstName: "Insira o nome do autor"
+                                errorTitle: true, 
+                                htTitle: "Insira o título do livro"
                             })
                         }
             
-                        if (!this.state.lastName) {
+                        if (!this.state.isbn) {
                             this.setState( { 
-                                errorLastName: true, 
-                                htLastName: "Insira o sobrenome do autor"
+                                errorIsbn: true, 
+                                htIsbn: "Insira o isbn do livro"
                             })
                         }
                     }
@@ -91,13 +95,13 @@ class UpdateBook extends React.Component {
                     <div className="col-12">
                         <TextField
                             id="outlined-full-width"
-                            label="Nome"
+                            label="Título"
                             fullWidth
-                            name="firstName"
-                            error={this.state.errorFirstName}
-                            value={this.state.firstName}
-                            helperText={this.state.htFirstName}
-                            onChange={this.handleChangeFirstName}
+                            name="title"
+                            error={this.state.errorTitle}
+                            value={this.state.title}
+                            helperText={this.state.htTitle}
+                            onChange={this.handleChangeTitle}
                             className={classes.textField}
                             margin="normal"
                             variant="outlined"
@@ -111,13 +115,13 @@ class UpdateBook extends React.Component {
                     <div className="col-12">
                         <TextField
                             id="outlined-full-width"
-                            label="Sobrenome"
+                            label="ISBN"
                             fullWidth
-                            name="lastName"
-                            error={this.state.errorLastName}
-                            value={this.state.lastName}
-                            helperText={this.state.htLastName}
-                            onChange={this.handleChangeLastName}
+                            name="isbn"
+                            error={this.state.errorIsbn}
+                            value={this.state.isbn}
+                            helperText={this.state.htIsbn}
+                            onChange={this.handleChangeIsbn}
                             className={classes.textField}
                             margin="normal"
                             variant="outlined"
@@ -154,7 +158,7 @@ const mapStateToProps = (state) => ({
 
 const mapDispatchToProps = (dispatch) => ({
     closeModal: () => dispatch({ type: 'ON_CLOSE_MODAL' }),
-    updateBook: (data) => dispatch({ type: 'ON_UPDATE_AUTHOR', data: data }),
+    updateBook: (data) => dispatch({ type: 'ON_UPDATE_BOOK', data: data }),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(UpdateBook)

@@ -40,6 +40,17 @@ const BooksByAuthor = (props) => {
 
     let currentAuthor = JSON.parse(localStorage.getItem('@library/currentAuthor'));
 
+    const updateBook = (id, title, isbn) => {
+        console.log("Editar livro")
+        let data = {
+            id: id,
+            title: title,
+            isbn: isbn
+        }
+        localStorage.setItem('@library/currentBook', JSON.stringify(data));
+        props.openModal('UPDATE_BOOK', 'Atualizar livro', "xs")
+    }
+
     const deleteBook = (id, title) => {
         console.log("Excluir livro ");  
 
@@ -107,7 +118,7 @@ const BooksByAuthor = (props) => {
                                                         <Tooltip 
                                                                 title="Editar" 
                                                                 className={"mt-3"}
-                                                                // onClick={() => updateAuthor()}
+                                                                onClick={() => updateBook(book.id, book.title, book.isbn)}
                                                                 >
                                                             <IconButton aria-label="edit">
                                                                 <EditIcon />
