@@ -30,7 +30,6 @@ getAuthors();
 // Lista livros de um autor
 const getBooksByAuthors = (id) => {
     let url = REACT_APP_DNS + `/authors/${id}/books`;
-    // alert(id)
     axios.get(url)
         .then(result => {
             console.log(result);
@@ -46,9 +45,9 @@ const deleteAuthor = (id) => {
     let url = REACT_APP_DNS + `/authors/${id}`;
     axios.delete(url)
         .then(result => {
-            console.log(result);
+            Store.dispatch({ type: 'ON_CLOSE_MODAL' })
+            Store.dispatch({ type: 'ON_OPEN_MODAL', openModal: true, modalType: 'CONFIRM_DELETE_AUTHOR', modalTitle: 'Excluído com sucesso', modalSize: 'xs' })
             getAuthors();
-            // chamar modal dizendo que o item foi deletado
         })
         .catch(e => {
             console.log(e)
@@ -61,8 +60,9 @@ const deleteBookByAuthor = (idAuthor, idBook) => {
     axios.delete(url)
         .then(result => {
             console.log(result);
+            Store.dispatch({ type: 'ON_CLOSE_MODAL' })
+            Store.dispatch({ type: 'ON_OPEN_MODAL', openModal: true, modalType: 'CONFIRM_DELETE_BOOK', modalTitle: 'Excluído com sucesso', modalSize: 'xs' })
             getBooksByAuthors(idAuthor);
-            // chamar modal dizendo que o item foi deletado
         })
         .catch(e => {
             console.log(e)
@@ -105,7 +105,7 @@ const updateBook = (data) => {
         .then(result => {
             console.log(result);
             Store.dispatch({ type: 'ON_CLOSE_MODAL' })
-            getBooksByAuthors(data.idAuthor);
+            getBooksByAuthors(data.     idAuthor);
             // chamar modal dizendo que o item foi atualizado
         })
         .catch(e => {
