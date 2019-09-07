@@ -10,11 +10,12 @@ import DeleteIcon from '@material-ui/icons/Delete';
 import EditIcon from '@material-ui/icons/Edit';
 import IconButton from '@material-ui/core/IconButton';
 import Tooltip from '@material-ui/core/Tooltip';
-import TextField from '@material-ui/core/TextField';
+// import TextField from '@material-ui/core/TextField';
 import SentimentDissatisfiedIcon from '@material-ui/icons/SentimentDissatisfied';
 import ArrowBackOutlinedIcon from '@material-ui/icons/ArrowBackOutlined';
 import Fab from '@material-ui/core/Fab';
 import AddIcon from '@material-ui/icons/Add';
+import Appbar from '../../general/appbar';
 
 
 const useStyles = makeStyles(theme => ({
@@ -81,6 +82,8 @@ const BooksByAuthor = (props) => {
     }
     return (
         <div>
+			<Appbar title={"Livros de " + currentAuthor.firstName + " " + currentAuthor.lastName}/>
+
             <div className={"text-left"}>
                 <Tooltip 
                     title="Voltar" 

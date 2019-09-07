@@ -8,13 +8,14 @@ import EditIcon from '@material-ui/icons/Edit';
 import IconButton from '@material-ui/core/IconButton';
 import Tooltip from '@material-ui/core/Tooltip';
 import Avatar from '@material-ui/core/Avatar';
-import { deepOrange } from '@material-ui/core/colors';
-// import TextField from '@material-ui/core/TextField';
+import { deepOrange, deepPurple } from '@material-ui/core/colors';
+import TextField from '@material-ui/core/TextField';
 import CardHeader from '@material-ui/core/CardHeader';
 import Fab from '@material-ui/core/Fab';
 import FolderOpenIcon from '@material-ui/icons/FolderOpen';
 import AddIcon from '@material-ui/icons/Add';
 import SentimentDissatisfiedIcon from '@material-ui/icons/SentimentDissatisfied';
+import Appbar from '../../general/appbar';
 
 const useStyles = makeStyles(theme => ({
     root: {
@@ -88,6 +89,7 @@ const Authors = (props) => {
 
     return (
         <div>
+			<Appbar title="Autores de Livros"/>
 
             {
                 props.authors?
@@ -95,7 +97,7 @@ const Authors = (props) => {
                         <Tooltip title="Adicionar autor" aria-label="add" 
                                 onClick={e => props.openModal("CREATE_AUTHOR", "Adicionar autor", "xs")}
                         >
-                            <Fab color="primary" className={classes.absolute + " " + classes.orange}>
+                            <Fab color="primary" className={classes.absolute}>
                                 <AddIcon />
                             </Fab>
                         </Tooltip>
@@ -104,9 +106,6 @@ const Authors = (props) => {
                             <Grid container spacing={3}>
                                 {/* <div className={"col-2"}></div> */}
                                 <div className={"col-12"}>
-                                    <h2 className="text-uppercase text-center mb-5" style={{letterSpacing: "1px", color: "rgb(109, 109, 109)"}}>
-                                        <b>Autores de Livros</b>
-                                    </h2>
                                     {/* <TextField
                                         id="outlined-full-width"
                                         style={{ margin: 9, background: 'white' }}
