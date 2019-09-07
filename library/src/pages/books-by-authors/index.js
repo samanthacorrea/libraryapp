@@ -100,28 +100,34 @@ const BooksByAuthor = (props) => {
                         <Grid container spacing={5}>
                              <Tooltip title="Adicionar livro" aria-label="add" 
                                                 onClick={e => props.openModal("CREATE_BOOK", "Adicionar livro", "xs")}
-                                        >
-                                            <Fab color="primary" className={classes.absolute + " " + classes.orange}>
-                                                <AddIcon />
-                                            </Fab>
-                                        </Tooltip>
-                            <h2>Lista de livros de um autor {currentAuthor.firstName} {currentAuthor.lastName}</h2>
+                            >
+                                <Fab color="primary" className={classes.absolute + " " + classes.orange}>
+                                    <AddIcon />
+                                </Fab>
+                            </Tooltip>
+                            <div className={"col-12 text-center"}>
+                                <h2 className="text-uppercase text-center mt-n4 mb-5" style={{letterSpacing: "1px", color: "rgb(109, 109, 109)"}}>
+                                    <b>
+                                        Livros de {currentAuthor.firstName} {currentAuthor.lastName}
+                                    </b>
+                                </h2>
+                            </div>
 
-                            <div className={"col-2"}></div>
-                                <div className={"col-8 text-center"}>
-                                    <TextField
-                                        id="outlined-full-width"
-                                        style={{ margin: 9, background: 'white' }}
-                                        placeholder="Pesquisar por livro do autor..."
-                                        fullWidth
-                                        margin="normal"
-                                        variant="outlined"
-                                        InputLabelProps={{
-                                            shrink: true,
-                                        }}
-                                    />
-                                </div>
-                                <div className={"col-2"}></div>
+                            {/* < div className={"col-2"}></div>
+                            <div className={"col-8 text-center"}>
+                                <TextField
+                                    id="outlined-full-width"
+                                    style={{ margin: 9, background: 'white' }}
+                                    placeholder="Pesquisar por livro do autor..."
+                                    fullWidth
+                                    margin="normal"
+                                    variant="outlined"
+                                    InputLabelProps={{
+                                        shrink: true,
+                                    }}
+                                />
+                            </div>
+                            <div className={"col-2"}></div> */}
                             {
                                 props.booksByAuthor.map((book, index) => 
                                     <Grid item xs={6}>
@@ -169,7 +175,7 @@ const BooksByAuthor = (props) => {
                             }
                         </Grid>
                         :
-                        <div className={"container pt-5"}>
+                        <div className={"container pt-5"}  style={{color: "rgb(109, 109, 109)"}}>
                             <div className={"row"}>
                                 <div className={"col-2"}></div>
                                 <div className={"col-8"}>

@@ -172,21 +172,16 @@ export const GeneralReducer = (state = initialState, action) => {
     state = Object.assign({}, state)
 
     switch (action.type) {    
-
-        case 'ON_OPEN_SIDEBAR':
-            return { ...state, openSideBar: true };
-        case 'ON_CLOSE_SIDEBAR':
-            return { ...state, openSideBar: false };
         case 'ON_AUTHORS':
             return { ...state, authors: action.authors, page: "Authors" }
         
         case 'ON_CREATE_AUTHOR':
             createAuthor(action.data)
             return { ...state }
+
         case 'ON_DELETE_AUTHOR':
             deleteAuthor(action.id);
             return { ...state }
-
 
         case 'ON_UPDATE_AUTHOR':
             updateAuthor(action.data)
@@ -207,7 +202,6 @@ export const GeneralReducer = (state = initialState, action) => {
             deleteBookByAuthor(action.idAuthor, action.idBook);
             return { ...state }
         
-
         case 'ON_GET_BOOKS_BY_AUTHOR':
             getBooksByAuthors(action.id);
             return { ...state, currentAuthor: action.id}  
@@ -218,16 +212,22 @@ export const GeneralReducer = (state = initialState, action) => {
         case 'ON_HOME':
             getAuthors();
             return { ...state, page: "Author" }
+        
         case 'ON_CHANGE_PAGE':
             return { ...state, page: action.page };
+
         case 'ON_OPEN_MODAL':
             return { ...state, openModal: true, modalType: action.modalType, modalTitle: action.modalTitle, modalSize: action.modalSize };
+        
         case 'ON_CLOSE_MODAL':
             return { ...state, openModal: false, modalTitle: null, modalSize: null };
+
         case 'ON_UPDATE_MODAL_TITLE':
             return { ...state, modalTitle: action.modalTitle };
+
         case 'ON_UPDATE_MODAL_SIZE':
             return { ...state, modalSize: action.modalSize };
+            
         default:
             return { ...state }
     }

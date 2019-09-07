@@ -9,7 +9,7 @@ import IconButton from '@material-ui/core/IconButton';
 import Tooltip from '@material-ui/core/Tooltip';
 import Avatar from '@material-ui/core/Avatar';
 import { deepOrange } from '@material-ui/core/colors';
-import TextField from '@material-ui/core/TextField';
+// import TextField from '@material-ui/core/TextField';
 import CardHeader from '@material-ui/core/CardHeader';
 import Fab from '@material-ui/core/Fab';
 import FolderOpenIcon from '@material-ui/icons/FolderOpen';
@@ -102,9 +102,12 @@ const Authors = (props) => {
                                                 
                         <div className={"row"}>
                             <Grid container spacing={3}>
-                                <div className={"col-2"}></div>
-                                <div className={"col-8"}>
-                                    <TextField
+                                {/* <div className={"col-2"}></div> */}
+                                <div className={"col-12"}>
+                                    <h2 className="text-uppercase text-center mb-5" style={{letterSpacing: "1px", color: "rgb(109, 109, 109)"}}>
+                                        <b>Autores de Livros</b>
+                                    </h2>
+                                    {/* <TextField
                                         id="outlined-full-width"
                                         style={{ margin: 9, background: 'white' }}
                                         placeholder="Pesquisar por autor..."
@@ -114,9 +117,9 @@ const Authors = (props) => {
                                         InputLabelProps={{
                                             shrink: true,
                                         }}
-                                    />
+                                    /> */}
                                 </div>
-                                <div className={"col-2"}></div>
+                                {/* <div className={"col-2"}></div> */}
 
                             {
                                 props.authors.map((author, index) => 
@@ -173,7 +176,7 @@ const Authors = (props) => {
                     </div>
  
                     :
-                    <div className={"container pt-5"}>
+                    <div className={"container pt-5"} style={{color: "rgb(109, 109, 109)"}}>
                         <div className={"row"}>
                             <div className={"col-2"}></div>
                             <div className={"col-8"}>
