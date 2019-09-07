@@ -4,11 +4,16 @@ import React from 'react'
 import Authors from '../pages/authors'
 import BooksByAuthors from '../pages/books-by-authors'
 // Modals
-import FirstModal from '../pages/authors/modals/first-modal'
+import DeleteAuthor from '../pages/authors/modals/delete-author'
+import UpdateAuthor from '../pages/authors/modals/update-author'
+// import DeleteAuthor from '../pages/authors/modals/delete-author'
+// import DeleteAuthor from '../pages/authors/modals/delete-author'
 
 
 const MODALS = {
-    'FIRST_MODAL': <FirstModal />,
+    'DELETE_AUTHOR': <DeleteAuthor />,
+    'UPDATE_AUTHOR': <UpdateAuthor />,
+
 };
 
 const PAGES = {

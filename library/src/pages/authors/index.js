@@ -54,22 +54,25 @@ const useStyles = makeStyles(theme => ({
 const Authors = (props) => {
     const classes = useStyles();
 
-    const deleteAuthor = (id) => {
+    const deleteAuthor = (id, firstName, lastName) => {
         console.log("Excluir autor ");  
-        props.openModal('FIRST_MODAL', "Excluir autor?", 'xs')
+        // props.setCurrentAuthor(id);
+        localStorage.setItem('@library/currentAuthor', id)
+        props.openModal('DELETE_AUTHOR', 'Excluir autor', 'xs')
         // props.deleteAuthor(id);
     }
 
     const updateAuthor = (id) => {
         console.log("Editar autor")
-
+        props.openModal('UPDATE_AUTHOR', 'Atualizar autor', "sm")
     }
 
     return (
         <div>
-            <Tooltip title="Adicionar autor" aria-label="add">
+            <Tooltip title="Adicionar autor" aria-label="add" onClick={e => props.openSideBar()}
+            >
                 <Fab color="primary" className={classes.absolute + " " + classes.orange}>
-                <AddIcon />
+                    <AddIcon />
                 </Fab>
             </Tooltip>
             
@@ -84,10 +87,8 @@ const Authors = (props) => {
                                 <div className={"col-8"}>
                                     <TextField
                                         id="outlined-full-width"
-                                        // label="Label"
                                         style={{ margin: 9 }}
                                         placeholder="Pesquisar..."
-                                        // helperText="Full width!"
                                         fullWidth
                                         margin="normal"
                                         variant="outlined"
@@ -97,15 +98,6 @@ const Authors = (props) => {
                                     />
                                 </div>
                                 <div className={"col-2"}></div>
-
-                                {/* <div className={"col-4 text-right"}>
-                                    <Button variant="contained" 
-                                            size="large" 
-                                            color="primary" 
-                                            className={classes.margin + " pt-3 pb-3"}>
-                                        + Adicionar Autor
-                                    </Button>
-                                </div> */}
 
                             {
                                 props.authors.map((author, index) => 
@@ -129,6 +121,7 @@ const Authors = (props) => {
                                                         <Tooltip 
                                                                 title="Editar" 
                                                                 className={"mt-3"}
+                                                                onClick={() => updateAuthor()}
                                                                 >
                                                             <IconButton aria-label="edit">
                                                                 <EditIcon />
@@ -138,7 +131,7 @@ const Authors = (props) => {
                                                         <Tooltip 
                                                                 title="Excluir" 
                                                                 className={"mt-3"}
-                                                                onClick={() => deleteAuthor(author.id)}
+                                                                onClick={() => deleteAuthor(author.id, author.firstName, author.lastName)}
                                                                 >
                                                             <IconButton aria-label="delete">
                                                                 <DeleteIcon />
@@ -171,7 +164,7 @@ const mapStateToProps = (state) => ({
 
 const mapDispatchToProps = (dispatch) => ({
     getBooksByAuthor: (id) => dispatch({ type: 'ON_GET_BOOKS_BY_AUTHOR', id: id}),
-    deleteAuthor: (id) => dispatch({ type: 'ON_DELETE_AUTHOR', id: id}),
+    setCurrentAuthor: (id) => dispatch({ type: 'ON_CURRENT_AUTHOR', id: id}),
     openModal: (modalType, modalTitle, modalSize) => dispatch({
         type: 'ON_OPEN_MODAL',
         modalType: modalType,
@@ -179,6 +172,7 @@ const mapDispatchToProps = (dispatch) => ({
         modalSize: modalSize
     }),
     closeModal: () => dispatch({ type: 'ON_CLOSE_MODAL' }),
+    openSideBar: (text) => dispatch({ type: 'ON_OPEN_SIDEBAR', text: text }),
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(Authors)

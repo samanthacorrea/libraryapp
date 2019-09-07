@@ -42,7 +42,8 @@ const styles = theme => ({
 
 const ModalSwitcher = (props) => {
     const classes = useStyles();
-
+    console.log(props.modalType)
+    console.log("tipo");
     return (
 
         <Dialog

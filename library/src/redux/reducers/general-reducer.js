@@ -3,11 +3,12 @@ import axios from 'axios';
 
 const initialState = {
     page: 'Authors',
-    modalType: 'FIRST_MODAL',
+    modalType: 'DELETE_AUTHOR',
     modalTitle: null,
     modalSize: null,
     booksByAuthor: null,
     currentAuthor: null,
+    openSideBar: false,
 };
 
 const REACT_APP_DNS = "https://bibliapp.herokuapp.com/api";
@@ -62,6 +63,11 @@ export const GeneralReducer = (state = initialState, action) => {
     state = Object.assign({}, state)
 
     switch (action.type) {    
+
+        case 'ON_OPEN_SIDEBAR':
+            return { ...state, openSideBar: true };
+        case 'ON_CLOSE_SIDEBAR':
+            return { ...state, openSideBar: false };
         case 'ON_AUTHORS':
             // console.log(action.authors);
             return { state, authors: action.authors, page: "Authors" }
@@ -80,6 +86,11 @@ export const GeneralReducer = (state = initialState, action) => {
             console.log(action.id);
             getBooksByAuthors(action.id);
             return { state, currentAuthor: action.id}  
+
+        case 'ON_CURRENT_AUTHOR':
+            console.log(action);
+            // deleteAuthor(action.id)
+            return { state, currentAuthor: action.id, page: "Author" }
 
         case 'ON_CHANGE_PAGE':
             return { ...state, page: action.page };
