@@ -43,7 +43,6 @@ const styles = theme => ({
 const ModalSwitcher = (props) => {
     const classes = useStyles();
     return (
-
         <Dialog
             fullWidth
             maxWidth={props.modalSize}

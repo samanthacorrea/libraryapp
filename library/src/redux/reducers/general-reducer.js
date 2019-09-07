@@ -9,6 +9,7 @@ const initialState = {
     booksByAuthor: null,
     currentAuthor: null,
     openSideBar: false,
+    openModal: false,
 };
 
 const REACT_APP_DNS = "https://bibliapp.herokuapp.com/api";
