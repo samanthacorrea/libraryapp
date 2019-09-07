@@ -124,7 +124,7 @@ const Authors = (props) => {
 
                                 {
                                     props.authors.map((author, index) => 
-                                    <Grid item xs={6}>
+                                    <Grid item xs={6} key={index}>
                                         <Paper  className={classes.paper}>
 
                                             
