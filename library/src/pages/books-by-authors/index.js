@@ -99,7 +99,7 @@ const BooksByAuthor = (props) => {
                     props.booksByAuthor.length>0?
                 
                         <Grid container spacing={5}>
-                             <Tooltip title="Adicionar autor" aria-label="add" 
+                             <Tooltip title="Adicionar livro" aria-label="add" 
                                                 onClick={e => props.openModal("CREATE_BOOK", "Adicionar livro", "xs")}
                                         >
                                             <Fab color="primary" className={classes.absolute + " " + classes.orange}>
@@ -180,6 +180,16 @@ const BooksByAuthor = (props) => {
                                     </h5>
                                     <div className={"text-center"}>
                                         <SentimentDissatisfiedIcon color="disabled" fontSize="large"/>
+                                    </div>
+
+                                    <div className={"text-center mt-5"}>
+                                        Adicione um novo livro<br/>
+                                        <Tooltip title="Adicionar livro" aria-label="add" 
+                                                onClick={e => props.openModal("CREATE_BOOK", "Adicionar livro", "xs")}>
+                                                <Fab color="primary" className={classes.orange}>
+                                                    <AddIcon />
+                                                </Fab>
+                                            </Tooltip>
                                     </div>
 
                                 </div>
