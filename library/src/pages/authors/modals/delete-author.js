@@ -15,11 +15,17 @@ const useStyles = makeStyles(theme => ({
 
 const DeleteAuthor = (props) => {
     const classes = useStyles();
+    let currentAuthor = JSON.parse(localStorage.getItem('@library/currentAuthor'));
+
+    const deleteAuthor = () => {
+        props.deleteAuthor(currentAuthor.id);
+    }
 
     return (
         <div>
             <div>
-                Se essa ação for executada todos os livros relacionados a esse autor também serão excluídos.
+                Se essa ação for executada todos os livros relacionados ao autor <b>"{currentAuthor.firstName} {currentAuthor.lastName}" </b>
+                também serão excluídos.<br/><br/>
                 Deseja realmente realizar esta ação? 
             </div>
 
@@ -33,7 +39,7 @@ const DeleteAuthor = (props) => {
                 
                 <div className={"col-3"}>
                     <Button variant="contained" color="secondary" className={classes.button}
-                            onClick={() => props.deleteAuthor()}>
+                            onClick={() => deleteAuthor()}>
                         Excluir
                     </Button>
                 </div>

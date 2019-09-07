@@ -44,7 +44,6 @@ const getBooksByAuthors = (id) => {
 // Deleta o autor 
 const deleteAuthor = (id) => {
     let url = REACT_APP_DNS + `/authors/${id}`;
-    alert(id)
     axios.delete(url)
         .then(result => {
             console.log(result);

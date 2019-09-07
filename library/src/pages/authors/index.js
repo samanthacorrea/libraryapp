@@ -13,6 +13,7 @@ import { deepOrange } from '@material-ui/core/colors';
 import TextField from '@material-ui/core/TextField';
 import CardHeader from '@material-ui/core/CardHeader';
 import Fab from '@material-ui/core/Fab';
+import FolderOpenIcon from '@material-ui/icons/FolderOpen';
 import AddIcon from '@material-ui/icons/Add';
 
 const useStyles = makeStyles(theme => ({
@@ -57,7 +58,12 @@ const Authors = (props) => {
     const deleteAuthor = (id, firstName, lastName) => {
         console.log("Excluir autor ");  
         // props.setCurrentAuthor(id);
-        localStorage.setItem('@library/currentAuthor', id)
+        let data = {
+            id: id,
+            firstName: firstName,
+            lastName: lastName
+        }
+        localStorage.setItem('@library/currentAuthor', JSON.stringify(data));
         props.openModal('DELETE_AUTHOR', 'Excluir autor', 'xs')
         // props.deleteAuthor(id);
     }
@@ -65,6 +71,17 @@ const Authors = (props) => {
     const updateAuthor = (id) => {
         console.log("Editar autor")
         props.openModal('UPDATE_AUTHOR', 'Atualizar autor', "sm")
+    }
+
+    const getBooksByAuthor = (id, firstName, lastName) => {
+        let data = {
+            id: id,
+            firstName: firstName,
+            lastName: lastName
+        }
+        localStorage.setItem('@library/currentAuthor', JSON.stringify(data));
+        
+        props.getBooksByAuthor(id);
     }
 
     return (
@@ -102,10 +119,7 @@ const Authors = (props) => {
                             {
                                 props.authors.map((author, index) => 
                                 <Grid item xs={6}>
-                                    <Paper  className={classes.paper} 
-                                            style={{cursor: "pointer"}}
-                                            // onClick={() => props.getBooksByAuthor(author.id)}
-                                            >
+                                    <Paper  className={classes.paper}>
 
                                         
                                         <CardHeader
@@ -118,6 +132,15 @@ const Authors = (props) => {
                                                 }
                                                 action={
                                                     <span>
+                                                        <Tooltip 
+                                                                title="Ver livros" 
+                                                                className={"mt-3"}
+                                                                onClick={() => getBooksByAuthor(author.id, author.firstName, author.lastN)}>
+                                                            <IconButton aria-label="open">
+                                                                <FolderOpenIcon />
+                                                            </IconButton>
+                                                        </Tooltip>
+
                                                         <Tooltip 
                                                                 title="Editar" 
                                                                 className={"mt-3"}
